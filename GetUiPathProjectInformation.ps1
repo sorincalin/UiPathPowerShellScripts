@@ -81,7 +81,8 @@ function GetProjectInformation
 
                     if (($activity.Selector -ne "{x:Null}"))
                     {
-                        $selector = "<head>" + $activity.Selector + "</head>"
+                        # Omitted field marking makes the XML invalid
+                        $selector = "<head>" + $activity.Selector.Replace("omit:", "omit_") + "</head>"
                         if (([xml]$selector).head.wnd -and ([xml]$selector).head.wnd.app)
                         {
                             $activity | Add-Member -NotePropertyName AppName -NotePropertyValue ([xml]$selector).head.wnd.app
